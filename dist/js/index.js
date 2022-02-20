@@ -1,4 +1,10 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 let x = 10;
 console.log(x);
 let y = 12;
@@ -61,3 +67,50 @@ function greeting(name, sobrenome) {
     }
 }
 greeting('pedro', 'aureliano');
+function doSomething(info) {
+    if (typeof info === 'number') {
+        console.log(`o numero é ${info}`);
+    }
+    console.log(`não foi passado um numero`);
+}
+doSomething(65);
+function showArraysItens(arr) {
+    return (arr.forEach(item => {
+        console.log(`item: ${item}`);
+    }));
+}
+showArraysItens(['dwada', 'kljklj', 4545]);
+class User {
+    constructor(name, year, isAdmin) {
+        this.name = name,
+            this.year = year,
+            this.isAdmin = isAdmin;
+    }
+    showUserName() {
+        console.log(`o nome do usuário é ${this.name}`);
+    }
+}
+const pedro = new User('Pedro', 2022, true);
+console.log(pedro);
+pedro.showUserName();
+function BaseParams() {
+    return function (constructor) {
+        return class extends constructor {
+            constructor() {
+                super(...arguments);
+                this.id = Math.random();
+                this.createdAt = new Date();
+            }
+        };
+    };
+}
+let Person = class Person {
+    constructor(name) {
+        this.name = name;
+    }
+};
+Person = __decorate([
+    BaseParams()
+], Person);
+const Pedrao = new Person('Pedrao');
+console.log(Pedrao);

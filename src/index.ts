@@ -108,6 +108,7 @@ const regata = {
 
 console.log(camisa, regata)
 
+
 // Literal Types
 // determinar um valor como um tipo
 // apesar de ser um let, não consigo mudar o valor para outro a não ser
@@ -117,6 +118,7 @@ let teste: 'autenticado' | null
 
 teste = 'autenticado'
 teste = null
+
 
 // Funções
 // tipar sempre os argumentos que são aceitos na minha função
@@ -142,6 +144,7 @@ function retornaNada(name: string): void{
 
 console.log(sayHello('Pedro'))
 
+
 // Greeting
 // quando o argumento não é obrigatório
 // passo o ? para o argumento
@@ -154,3 +157,81 @@ function greeting(name: string, sobrenome?: string): void{
 }
 
 greeting('pedro', 'aureliano')
+
+
+// narrowing
+// checagem dos tipos a partir do typeof
+function doSomething(info: number | boolean){
+  if(typeof info === 'number'){
+    console.log(`o numero é ${info}`)
+  }
+  console.log(`não foi passado um numero`)
+}
+
+doSomething(65)
+
+
+// generics
+// o tipo de dado não importa! mas eu quero que esse dado não seja any
+// quando tenho algo que não esta definido por um tipo, mas eu preciso que ele aceite
+// varios tipos, geralmente se usa o generics
+// <T> é tipo genérico
+function showArraysItens<T>(arr: T[]){
+  return (
+    arr.forEach(item => {
+      console.log(`item: ${item}`)
+    })
+  )
+}
+
+showArraysItens(['dwada', 'kljklj', 4545])
+
+
+// classes
+// passo a tipagem no meu constructor
+// passo as propriedades antes do constructor
+
+class User {
+  name
+  year
+  isAdmin
+
+  constructor(name: string, year: number, isAdmin: boolean){
+    this.name = name,
+    this.year = year,
+    this.isAdmin = isAdmin
+  }
+
+  showUserName(){
+    console.log(`o nome do usuário é ${this.name}`)
+  }
+}
+
+const pedro = new User('Pedro', 2022, true)
+console.log(pedro)
+pedro.showUserName()
+
+
+// cnstructor decorators
+//  é uma função - mais complexo
+
+function BaseParams(){
+  return function<T extends {new(...args: any[]): {}}>(constructor: T){
+    return class extends constructor {
+      id = Math.random()
+      createdAt = new Date()
+    }
+  }
+}
+
+@BaseParams()
+class Person {
+  name
+
+  constructor(name: string){
+    this.name = name
+  }
+}
+
+const Pedrao = new Person('Pedrao')
+console.log(Pedrao)
